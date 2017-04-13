@@ -1,0 +1,9 @@
+c:\users\puzzleton\documents\visual studio 2015\Projects\CheckItCheckers\CheckItCheckers\bin\Debug\CheckItCheckers.exe.config
+c:\users\puzzleton\documents\visual studio 2015\Projects\CheckItCheckers\CheckItCheckers\bin\Debug\CheckItCheckers.exe
+c:\users\puzzleton\documents\visual studio 2015\Projects\CheckItCheckers\CheckItCheckers\bin\Debug\CheckItCheckers.pdb
+c:\users\puzzleton\documents\visual studio 2015\Projects\CheckItCheckers\CheckItCheckers\obj\Debug\CheckItCheckers.csprojResolveAssemblyReference.cache
+c:\users\puzzleton\documents\visual studio 2015\Projects\CheckItCheckers\CheckItCheckers\obj\Debug\CheckItCheckers.MainForm.resources
+c:\users\puzzleton\documents\visual studio 2015\Projects\CheckItCheckers\CheckItCheckers\obj\Debug\CheckItCheckers.Properties.Resources.resources
+c:\users\puzzleton\documents\visual studio 2015\Projects\CheckItCheckers\CheckItCheckers\obj\Debug\CheckItCheckers.csproj.GenerateResource.Cache
+c:\users\puzzleton\documents\visual studio 2015\Projects\CheckItCheckers\CheckItCheckers\obj\Debug\CheckItCheckers.exe
+c:\users\puzzleton\documents\visual studio 2015\Projects\CheckItCheckers\CheckItCheckers\obj\Debug\CheckItCheckers.pdb
