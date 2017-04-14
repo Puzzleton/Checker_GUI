@@ -14,6 +14,7 @@ namespace CheckItCheckers
         public const int BLACK = 1;
         public const int WHITE_KING = 2;
         public const int BLACK_KING = 3;
+        public const int EMPTY = -1;
     }
     static class Program
     {

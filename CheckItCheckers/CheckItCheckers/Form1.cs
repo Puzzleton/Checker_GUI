@@ -22,7 +22,7 @@ namespace CheckItCheckers
 
             char[,] board = new char[Globals.BOARD_SIZE, Globals.BOARD_SIZE / 2];
 
-            //updatePiece(2, 1, Globals.BLACK_KING);
+            updatePiece(2, 1, Globals.EMPTY);
         }
 
         public void updatePiece(int row, int column, int color)
@@ -40,6 +40,9 @@ namespace CheckItCheckers
                     break;
                 case Globals.BLACK_KING:
                     Globals.pbs[(row * (Globals.BOARD_SIZE / 2)) + column].Image = global::CheckItCheckers.Properties.Resources.black_king;
+                    break;
+                default:
+                    Globals.pbs[(row * (Globals.BOARD_SIZE / 2)) + column].Image = null;
                     break;
             }
             this.Refresh();
