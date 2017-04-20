@@ -7,3 +7,6 @@ c:\users\puzzleton\documents\visual studio 2015\Projects\CheckItCheckers\CheckIt
 c:\users\puzzleton\documents\visual studio 2015\Projects\CheckItCheckers\CheckItCheckers\obj\Debug\CheckItCheckers.csproj.GenerateResource.Cache
 c:\users\puzzleton\documents\visual studio 2015\Projects\CheckItCheckers\CheckItCheckers\obj\Debug\CheckItCheckers.exe
 c:\users\puzzleton\documents\visual studio 2015\Projects\CheckItCheckers\CheckItCheckers\obj\Debug\CheckItCheckers.pdb
+C:\Users\puzzleton\Documents\GitHub\checkers\Checker_GUI\CheckItCheckers\CheckItCheckers\bin\Debug\CheckItCheckers.exe.config
+C:\Users\puzzleton\Documents\GitHub\checkers\Checker_GUI\CheckItCheckers\CheckItCheckers\obj\Debug\CheckItCheckers.exe
+C:\Users\puzzleton\Documents\GitHub\checkers\Checker_GUI\CheckItCheckers\CheckItCheckers\obj\Debug\CheckItCheckers.pdb

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace CheckItCheckers
 {
@@ -24,8 +25,36 @@ namespace CheckItCheckers
 
             updatePiece(2, 1, Globals.EMPTY);
         }
+        
+        public void movePiece(int piece, int fromRow, int fromCol, int toRow, int toCol)
+        {
+            // TODO: if the move is valid
+            updatePiece(fromRow, fromCol, Globals.EMPTY);
+            // TODO: remove any piece that was jumped
+            updatePiece(toRow, toCol, piece);
 
-        public void updatePiece(int row, int column, int color)
+            // TODO: update char[,] board
+        }
+
+        private void readBoardFromFile(string fileName)
+        {
+            FileStream fs = new FileStream(fileName, FileMode.Open);
+            string fileString = fs.ToString();
+            fs.Close();
+        }
+
+        private void writeBoardToFile(string fileName, char[,] board)
+        {
+            string[] boardAsStrings = new string[Globals.BOARD_SIZE];
+            for(int i = 0; i < Globals.BOARD_SIZE; i++)
+            {
+                //boardAsStrings[i] = board[i];
+            }
+            //File.WriteAllLines("board.txt", );
+            
+        }
+
+        private void updatePiece(int row, int column, int color)
         {
             switch (color)
             {
