@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckItCheckers", "CheckItCheckers\CheckItCheckers.csproj", "{751AA7D3-EE9F-490E-A1F0-DF1AE470AAD3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{751AA7D3-EE9F-490E-A1F0-DF1AE470AAD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{751AA7D3-EE9F-490E-A1F0-DF1AE470AAD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{751AA7D3-EE9F-490E-A1F0-DF1AE470AAD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{751AA7D3-EE9F-490E-A1F0-DF1AE470AAD3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
