@@ -82,8 +82,33 @@ namespace CheckItCheckers
 
         }
 
-        
+        //Load File 
+        private void loadLogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
 
-        
+            string filename = "test.txt";
+
+            using (TextReader reader = File.OpenText(filename))
+            {
+
+                //Error check if the file does not exist
+                if (!File.Exists(filename))
+                {
+                    MessageBox.Show(string.Format("File {0} does not exist or is not a text file", filename));
+                }
+
+                //Reads in the line and splits it into different variables.
+                //Read in format: 10 15 
+                string cordSplit = reader.ReadLine(); 
+                string[] cords = cordSplit.Split(' ');
+
+                int x = int.Parse(cords[0]); //cords[0] = 10 // x = 10
+                int y = int.Parse(cords[1]); //cords[1] = 15 // y = 15
+
+                //David: Call move function here. 
+                //move(x,y);
+            }
+        }
+    
     }
 }

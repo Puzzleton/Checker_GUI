@@ -224,6 +224,7 @@
             this.loadLogToolStripMenuItem.Name = "loadLogToolStripMenuItem";
             this.loadLogToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.loadLogToolStripMenuItem.Text = "Load Log";
+            this.loadLogToolStripMenuItem.Click += new System.EventHandler(this.loadLogToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
@@ -1246,7 +1247,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox62)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.space16)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox64)).EndInit();
-
             this.ResumeLayout(false);
             this.PerformLayout();
 
