@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Timers;
 
 namespace CheckItCheckers
 {
@@ -86,6 +87,7 @@ namespace CheckItCheckers
         private void loadLogToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+            //NEED TO SET FILE NAME HERE
             string filename = "test.txt";
 
             using (TextReader reader = File.OpenText(filename))
@@ -109,6 +111,71 @@ namespace CheckItCheckers
                 //move(x,y);
             }
         }
-    
+
+        private void fiveSecondsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Timers.Timer timer = new System.Timers.Timer();
+            timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+            timer.Interval = 5000;
+            timer.Enabled = true;
+
+            //timer.Stop();
+
+        }
+
+        private void tenSecondsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Timers.Timer timer = new System.Timers.Timer();
+            timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+            timer.Interval = 10000;
+            timer.Enabled = true;
+
+            //timer.Stop();
+
+        }
+
+        private void twentySecondsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Timers.Timer timer = new System.Timers.Timer();
+            timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+            timer.Interval = 20000;
+            timer.Enabled = true;
+
+            //timer.Stop();
+
+        }
+
+        private void minuteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Timers.Timer timer = new System.Timers.Timer();
+            timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+            timer.Interval = 60000;
+            timer.Enabled = true;
+
+            //timer.Stop();
+
+        }
+
+        private void noLimitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            //This may not work. Need to test still. Since we can not set timer.Interval = PosativeInfinity, 
+            //I have to set to the upper bound for the timer class.
+
+            System.Timers.Timer timer = new System.Timers.Timer();
+            timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+            timer.Interval = Int32.MaxValue;
+            timer.Enabled = true;
+
+            //timer.Stop();
+
+        }
+
+        private static void OnTimedEvent(object source, ElapsedEventArgs e)
+        {
+            Console.WriteLine("Time Limit has been reached!");
+
+            //Probably swap to other players turn here.
+        }
     }
 }
