@@ -216,19 +216,19 @@
             // saveLogToolStripMenuItem
             // 
             this.saveLogToolStripMenuItem.Name = "saveLogToolStripMenuItem";
-            this.saveLogToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveLogToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.saveLogToolStripMenuItem.Text = "Save Log";
             // 
             // loadLogToolStripMenuItem
             // 
             this.loadLogToolStripMenuItem.Name = "loadLogToolStripMenuItem";
-            this.loadLogToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loadLogToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.loadLogToolStripMenuItem.Text = "Load Log";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // gameToolStripMenuItem
@@ -267,32 +267,37 @@
             // fiveSecondsToolStripMenuItem
             // 
             this.fiveSecondsToolStripMenuItem.Name = "fiveSecondsToolStripMenuItem";
-            this.fiveSecondsToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.fiveSecondsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.fiveSecondsToolStripMenuItem.Text = "5 Seconds";
+            this.fiveSecondsToolStripMenuItem.Click += new System.EventHandler(this.fiveSecondsToolStripMenuItem_Click);
             // 
             // tenSecondsToolStripMenuItem
             // 
             this.tenSecondsToolStripMenuItem.Name = "tenSecondsToolStripMenuItem";
-            this.tenSecondsToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.tenSecondsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.tenSecondsToolStripMenuItem.Text = "10 Seconds";
+            this.tenSecondsToolStripMenuItem.Click += new System.EventHandler(this.tenSecondsToolStripMenuItem_Click);
             // 
             // twentySecondsToolStripMenuItem
             // 
             this.twentySecondsToolStripMenuItem.Name = "twentySecondsToolStripMenuItem";
-            this.twentySecondsToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.twentySecondsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.twentySecondsToolStripMenuItem.Text = "20 Seconds";
+            this.twentySecondsToolStripMenuItem.Click += new System.EventHandler(this.twentySecondsToolStripMenuItem_Click);
             // 
             // minuteToolStripMenuItem
             // 
             this.minuteToolStripMenuItem.Name = "minuteToolStripMenuItem";
-            this.minuteToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.minuteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.minuteToolStripMenuItem.Text = "1 Minute";
+            this.minuteToolStripMenuItem.Click += new System.EventHandler(this.minuteToolStripMenuItem_Click);
             // 
             // noLimitToolStripMenuItem
             // 
             this.noLimitToolStripMenuItem.Name = "noLimitToolStripMenuItem";
-            this.noLimitToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.noLimitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.noLimitToolStripMenuItem.Text = "No Limit";
+            this.noLimitToolStripMenuItem.Click += new System.EventHandler(this.noLimitToolStripMenuItem_Click);
             // 
             // player1GroupBox
             // 
@@ -305,7 +310,7 @@
             this.player1GroupBox.Size = new System.Drawing.Size(200, 100);
             this.player1GroupBox.TabIndex = 2;
             this.player1GroupBox.TabStop = false;
-            this.player1GroupBox.Text = "Player 1";
+            this.player1GroupBox.Text = "Black";
             this.player1GroupBox.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // player1ConsoleCheckBox
@@ -313,9 +318,9 @@
             this.player1ConsoleCheckBox.AutoSize = true;
             this.player1ConsoleCheckBox.Location = new System.Drawing.Point(10, 67);
             this.player1ConsoleCheckBox.Name = "player1ConsoleCheckBox";
-            this.player1ConsoleCheckBox.Size = new System.Drawing.Size(142, 17);
+            this.player1ConsoleCheckBox.Size = new System.Drawing.Size(124, 17);
             this.player1ConsoleCheckBox.TabIndex = 3;
-            this.player1ConsoleCheckBox.Text = "Show Player 1\'s Console";
+            this.player1ConsoleCheckBox.Text = "Show Black Console";
             this.player1ConsoleCheckBox.UseVisualStyleBackColor = true;
             // 
             // player1FileLabel
@@ -344,6 +349,7 @@
             this.player1HumanButton.TabIndex = 0;
             this.player1HumanButton.Text = "Human";
             this.player1HumanButton.UseVisualStyleBackColor = true;
+            this.player1HumanButton.Click += new System.EventHandler(this.player1HumanButton_Click);
             // 
             // player2GroupBox
             // 
@@ -356,16 +362,16 @@
             this.player2GroupBox.Size = new System.Drawing.Size(200, 100);
             this.player2GroupBox.TabIndex = 4;
             this.player2GroupBox.TabStop = false;
-            this.player2GroupBox.Text = "Player 2";
+            this.player2GroupBox.Text = "White";
             // 
             // player2ConsoleCheckBox
             // 
             this.player2ConsoleCheckBox.AutoSize = true;
             this.player2ConsoleCheckBox.Location = new System.Drawing.Point(10, 67);
             this.player2ConsoleCheckBox.Name = "player2ConsoleCheckBox";
-            this.player2ConsoleCheckBox.Size = new System.Drawing.Size(142, 17);
+            this.player2ConsoleCheckBox.Size = new System.Drawing.Size(132, 17);
             this.player2ConsoleCheckBox.TabIndex = 3;
-            this.player2ConsoleCheckBox.Text = "Show Player 2\'s Console";
+            this.player2ConsoleCheckBox.Text = "Show White\'s Console";
             this.player2ConsoleCheckBox.UseVisualStyleBackColor = true;
             // 
             // player2FileLabel
@@ -394,6 +400,7 @@
             this.player2HumanButton.TabIndex = 0;
             this.player2HumanButton.Text = "Human";
             this.player2HumanButton.UseVisualStyleBackColor = true;
+            this.player2HumanButton.Click += new System.EventHandler(this.player2HumanButton_Click);
             // 
             // controlGroupBox
             // 
@@ -412,9 +419,9 @@
             this.turnTrackerLabel.AutoSize = true;
             this.turnTrackerLabel.Location = new System.Drawing.Point(6, 46);
             this.turnTrackerLabel.Name = "turnTrackerLabel";
-            this.turnTrackerLabel.Size = new System.Drawing.Size(73, 13);
+            this.turnTrackerLabel.Size = new System.Drawing.Size(62, 13);
             this.turnTrackerLabel.TabIndex = 2;
-            this.turnTrackerLabel.Text = "Player 1\'s turn";
+            this.turnTrackerLabel.Text = "Black\'s turn";
             // 
             // resetGameButton
             // 
@@ -424,6 +431,7 @@
             this.resetGameButton.TabIndex = 1;
             this.resetGameButton.Text = "Reset Game";
             this.resetGameButton.UseVisualStyleBackColor = true;
+            this.resetGameButton.Click += new System.EventHandler(this.resetGameButton_Click);
             // 
             // startGameButton
             // 
@@ -433,6 +441,7 @@
             this.startGameButton.TabIndex = 0;
             this.startGameButton.Text = "Start Game";
             this.startGameButton.UseVisualStyleBackColor = true;
+            this.startGameButton.Click += new System.EventHandler(this.startGameButton_Click);
             // 
             // pictureBox1
             // 
@@ -1246,7 +1255,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox62)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.space16)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox64)).EndInit();
-
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -10,11 +10,21 @@ namespace CheckItCheckers
     {
         public const int BOARD_SIZE = 8;
         public static PictureBox[] pbs;
+        public static char[,] board;
+        public static int timeOut = 0;
         public const int WHITE = 0;
         public const int BLACK = 1;
         public const int WHITE_KING = 2;
         public const int BLACK_KING = 3;
         public const int EMPTY = -1;
+        public const char BLACK_CHAR = 'b';
+        public const char WHITE_CHAR = 'w';
+        public const char BLACK_KING_CHAR = 'B';
+        public const char WHITE_KING_CHAR = 'W';
+        public const char EMPTY_CHAR = ' ';
+        public const bool BLACK_TURN = false;
+        public const bool WHITE_TURN = true;
+        public static bool turn = BLACK_TURN;
     }
     static class Program
     {
@@ -26,7 +36,9 @@ namespace CheckItCheckers
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            MainForm f = new MainForm();
+            Application.Run(f);
+
             
         }
     }
