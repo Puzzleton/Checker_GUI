@@ -82,7 +82,6 @@ namespace CheckItCheckers
                     }
                 }
             }
-
             switch(Globals.turn)
             {
                 case Globals.BLACK_TURN:
@@ -257,9 +256,13 @@ namespace CheckItCheckers
             switch(Globals.turn)
             {
                 case Globals.BLACK_TURN:
+                    if (toRow == Globals.BOARD_SIZE - 1)
+                        Globals.board[toRow, toCol] = Globals.BLACK_KING_CHAR;
                     Globals.turn = Globals.WHITE_TURN;
                     break;
                 case Globals.WHITE_TURN:
+                    if (toRow == 0)
+                        Globals.board[toRow, toCol] = Globals.WHITE_KING_CHAR;
                     Globals.turn = Globals.BLACK_TURN;
                     break;
 

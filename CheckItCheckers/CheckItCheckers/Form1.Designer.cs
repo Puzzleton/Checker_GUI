@@ -267,35 +267,35 @@
             // fiveSecondsToolStripMenuItem
             // 
             this.fiveSecondsToolStripMenuItem.Name = "fiveSecondsToolStripMenuItem";
-            this.fiveSecondsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fiveSecondsToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.fiveSecondsToolStripMenuItem.Text = "5 Seconds";
             this.fiveSecondsToolStripMenuItem.Click += new System.EventHandler(this.fiveSecondsToolStripMenuItem_Click);
             // 
             // tenSecondsToolStripMenuItem
             // 
             this.tenSecondsToolStripMenuItem.Name = "tenSecondsToolStripMenuItem";
-            this.tenSecondsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.tenSecondsToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.tenSecondsToolStripMenuItem.Text = "10 Seconds";
             this.tenSecondsToolStripMenuItem.Click += new System.EventHandler(this.tenSecondsToolStripMenuItem_Click);
             // 
             // twentySecondsToolStripMenuItem
             // 
             this.twentySecondsToolStripMenuItem.Name = "twentySecondsToolStripMenuItem";
-            this.twentySecondsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.twentySecondsToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.twentySecondsToolStripMenuItem.Text = "20 Seconds";
             this.twentySecondsToolStripMenuItem.Click += new System.EventHandler(this.twentySecondsToolStripMenuItem_Click);
             // 
             // minuteToolStripMenuItem
             // 
             this.minuteToolStripMenuItem.Name = "minuteToolStripMenuItem";
-            this.minuteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.minuteToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.minuteToolStripMenuItem.Text = "1 Minute";
             this.minuteToolStripMenuItem.Click += new System.EventHandler(this.minuteToolStripMenuItem_Click);
             // 
             // noLimitToolStripMenuItem
             // 
             this.noLimitToolStripMenuItem.Name = "noLimitToolStripMenuItem";
-            this.noLimitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.noLimitToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.noLimitToolStripMenuItem.Text = "No Limit";
             this.noLimitToolStripMenuItem.Click += new System.EventHandler(this.noLimitToolStripMenuItem_Click);
             // 
