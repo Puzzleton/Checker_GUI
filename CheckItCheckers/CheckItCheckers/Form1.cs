@@ -31,8 +31,8 @@ namespace CheckItCheckers
             initializeBoard();
             drawBoard();
             resetLocalLog();
-            movePiece(2, 0, 3, 0);
-            movePiece(5, 0, 4, 0);
+            //movePiece(2, 0, 3, 0);
+            //movePiece(5, 0, 4, 0);
             //writeBoardToFile("board.txt");
         }
 
@@ -462,7 +462,10 @@ namespace CheckItCheckers
             dlgOpenReciprocityFile.FilterIndex = 1;
 
             dlgOpenReciprocityFile.RestoreDirectory = true;
-            if (dlgOpenReciprocityFile.ShowDialog() == DialogResult.Cancel) ;
+            if (dlgOpenReciprocityFile.ShowDialog() == DialogResult.Cancel)
+
+                //If cancel
+                ;
 
             //completepath = Process.Start("explorer.exe", "/select," + newfilepath);
 
@@ -487,8 +490,16 @@ namespace CheckItCheckers
         private void loadLogToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            //NEED TO SET FILE NAME HERE
-            string filename = "test.txt";
+
+            OpenFileDialog dlgOpenReciprocityFile = new OpenFileDialog(); dlgOpenReciprocityFile.InitialDirectory = @"C:\";
+
+            dlgOpenReciprocityFile.RestoreDirectory = true;
+            if (dlgOpenReciprocityFile.ShowDialog() == DialogResult.Cancel)
+
+                //If cancel
+                return;
+
+            string filename = dlgOpenReciprocityFile.FileName;
 
             using (TextReader reader = File.OpenText(filename))
             {
@@ -498,6 +509,8 @@ namespace CheckItCheckers
                 {
                     MessageBox.Show(string.Format("File {0} does not exist or is not a text file", filename));
                 }
+
+
 
                 while (true)
                 {
@@ -518,6 +531,7 @@ namespace CheckItCheckers
                     int destCol = int.Parse(cords[3]); //cords[3] = 25 // y = 25
                 }   
 
+
             }
         }
 
@@ -530,31 +544,19 @@ namespace CheckItCheckers
         //              HOWEVER, variables will have to be passed to this each time it      //
         //              writes to the file.                                                 //
         //////////////////////////////////////////////////////////////////////////////////////
-        // EXAMPLE PRINTOUT:                                                                //
-        // <[Inital Row: #] [Initial Col: #]> <[Destination Row: #] [Destination Col: #]>   //
-        //////////////////////////////////////////////////////////////////////////////////////
         private void saveLogToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            //THIS IS HARDCODED SO IT CAN COMPILE. THESE VARS MUST BE SENT TO THIS FUCNTION!
-            ////////////////////////////////////////////////////////
-            int initRow = 0, initCol = 0, destRow = 0, destCol = 0; 
-            ////////////////////////////////////////////////////////
 
-            string filePath = @"log.txt"; //PATH TO FILE HERE
+            SaveFileDialog dlgSaveReciprocityFile = new SaveFileDialog(); dlgSaveReciprocityFile.InitialDirectory = @"C:\";
 
-            if (File.Exists(filePath))
-            {
-                File.Delete(filePath);
-            }
-            using (StreamWriter writer = new StreamWriter(filePath))
-            {
-                writer.Write($"<[Initial Row: {initRow}]");
-                writer.Write($" [Initial Col: {initCol}]>");
-                writer.Write($"<[Destination Row: {destRow}]");
-                writer.WriteLine($" [Destination Col: {destCol}]>");
+            dlgSaveReciprocityFile.RestoreDirectory = true;
+            if (dlgSaveReciprocityFile.ShowDialog() == DialogResult.Cancel)
 
-            }
+                //If cancel
+                return;               
+
+            copyLocalLog(dlgSaveReciprocityFile.FileName);
 
         }
 
@@ -698,345 +700,26 @@ namespace CheckItCheckers
         }
 
 
-
-
-        // ignore these, creation code is too ugly to mess with in other file
-        // created when moving the checkerboard over more
-
-        private void player1FileLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void player2FileLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void MainForm_Load(object sender, EventArgs e)
         {
 
         }
 
-        private void space31_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox34_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space30_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox36_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space29_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox38_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space28_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox40_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space27_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox42_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space26_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox44_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space25_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox46_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space24_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox48_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space23_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox50_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space22_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox52_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space21_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox54_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space20_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox56_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space19_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox58_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space18_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox60_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space17_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox62_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space16_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox64_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space15_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox18_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space14_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox20_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space13_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox22_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space12_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox24_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space11_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox26_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space10_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox28_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space9_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox30_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space8_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox32_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void space7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox10_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox12_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox14_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox16_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox8_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void space0_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        // Name: private void exitToolStripMenuItem_Click(object sender, EventArgs e)            //
+        // Description: Asks the user if they would like to exit the application or not. If yes  //
+        //              the user will exit the application. If no, the user returns to the form. //
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            var confirmResult = MessageBox.Show("Are you sure to exit?","Exit CheckItCheckers", MessageBoxButtons.YesNo);
+            if (confirmResult == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+                       
 
         }
-
     }
 }
