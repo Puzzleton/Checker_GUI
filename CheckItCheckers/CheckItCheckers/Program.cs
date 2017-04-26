@@ -25,6 +25,9 @@ namespace CheckItCheckers
         public const bool BLACK_TURN = false;
         public const bool WHITE_TURN = true;
         public static bool turn = BLACK_TURN;
+        public static bool isBlackHuman = true;
+        public static bool isWhiteHuman = true;
+        public static int lastJumpCounter = 0;
     }
     static class Program
     {

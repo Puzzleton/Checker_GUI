@@ -30,27 +30,83 @@ namespace CheckItCheckers
             Globals.board = new char[Globals.BOARD_SIZE, Globals.BOARD_SIZE / 2];
             initializeBoard();
             drawBoard();
-            //writeBoardToFile("board.txt");
             resetLocalLog();
+            movePiece(2, 0, 3, 0);
+            movePiece(5, 0, 4, 0);
+            //writeBoardToFile("board.txt");
+        }
+
+        // check if the game is finished
+        private bool isGameOver()
+        {
+            bool blackPiecesLeft = false;
+            bool whitePiecesLeft = false;
+
+            // see if there is a draw
+            if(Globals.lastJumpCounter >= 40)
+            {
+                MessageBox.Show("40 turns have passed without a piece being taken. The game ends in a draw.");
+                return true;
+            }
+
+            // see if either side is out of pieces
+            for(int i = 0; i < Globals.BOARD_SIZE || (blackPiecesLeft && whitePiecesLeft); i++)
+            {
+                for(int j = 0; j < Globals.BOARD_SIZE / 2 || (blackPiecesLeft && whitePiecesLeft); j++)
+                {
+                    switch(Globals.board[i,j])
+                    {
+                        case Globals.WHITE_CHAR:
+                        case Globals.WHITE_KING_CHAR:
+                            whitePiecesLeft = true;
+                            break;
+                        case Globals.BLACK_CHAR:
+                        case Globals.BLACK_KING_CHAR:
+                            blackPiecesLeft = true;
+                            break;
+                    }
+                }
+            }
+            if(!blackPiecesLeft)
+            {
+                MessageBox.Show("White wins!");
+                return true;
+            }
+            else if(!whitePiecesLeft)
+            {
+                MessageBox.Show("Black wins!");
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         // sets the resource log to an empty file
         private void resetLocalLog()
         {
-            File.WriteAllText(global::CheckItCheckers.Properties.Resources.log, string.Empty);
+            File.WriteAllText("log.txt", string.Empty);
         }
 
         // appends a string to the local log file
         private void appendToLocalLog(string str)
         {
-            File.AppendAllText(global::CheckItCheckers.Properties.Resources.log, str);
+            File.AppendAllText("log.txt", str);
         }
 
         // copies the contents of the log to the specified filePath
         private void copyLocalLog(string filePath)
         {
-            string[] lines = File.ReadAllLines(global::CheckItCheckers.Properties.Resources.log);
+            string[] lines = File.ReadAllLines("log.txt");
             File.WriteAllLines(filePath, lines);
+        }
+
+        // copies the contents of a text file to the local log
+        private void loadLocalLog(string filePath)
+        {
+            string[] lines = File.ReadAllLines(filePath);
+            File.WriteAllLines("log.txt", lines);
         }
 
         // sets the board to the initial state
@@ -274,7 +330,13 @@ namespace CheckItCheckers
 
             // remove the jumped piece if there was a jump
             if (jumpedCol != -1 && jumpedRow != -1)
+            {
                 Globals.board[jumpedRow, jumpedCol] = Globals.EMPTY_CHAR;
+                Globals.lastJumpCounter = 0;
+            }
+            else
+                Globals.lastJumpCounter++;
+
 
             // alternate turn
             switch (Globals.turn)
@@ -296,6 +358,16 @@ namespace CheckItCheckers
 
             // redraw the new board
             drawBoard();
+
+            // create a string for the move
+            string moveAsString = fromRow.ToString() + ' ' + fromCol.ToString() +
+                ' ' + toRow.ToString() + ' ' + toCol.ToString() + '\n';
+
+            // send the move to the log
+            appendToLocalLog(moveAsString);
+
+            // output the new board to board.txt
+            writeBoardToFile("board.txt");
 
             return true; // move was valid
         }
@@ -446,8 +518,8 @@ namespace CheckItCheckers
                     int destCol = int.Parse(cords[3]); //cords[3] = 25 // y = 25
                 }   
 
-                }
             }
+        }
 
 
         //////////////////////////////////////////////////////////////////////////////////////
@@ -592,15 +664,19 @@ namespace CheckItCheckers
 
         private void startGameButton_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void resetGameButton_Click(object sender, EventArgs e)
         {
             // change later if we don't want to create a new instance and close the current program instance
 
-            System.Diagnostics.Process.Start(Application.ExecutablePath); // to start new instance of application
-            this.Close(); // close current instance
+            //System.Diagnostics.Process.Start(Application.ExecutablePath); // to start new instance of application
+            //this.Close(); // close current instance
+
+            initializeBoard();
+            drawBoard();
+            resetLocalLog();
         }
 
         private void load_executable(string filename)
