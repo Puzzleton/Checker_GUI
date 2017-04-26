@@ -28,6 +28,9 @@ namespace CheckItCheckers
         public static bool isBlackHuman = true;
         public static bool isWhiteHuman = true;
         public static int lastJumpCounter = 0;
+        public static bool gameStarted = true;
+        public static bool humanTurn = true;
+        public static int clickedPosition = -1;
     }
     static class Program
     {

@@ -34,6 +34,37 @@ namespace CheckItCheckers
             //movePiece(2, 0, 3, 0);
             //movePiece(5, 0, 4, 0);
             //writeBoardToFile("board.txt");
+
+            for (int i = 0; i < Globals.BOARD_SIZE; i++)
+            {
+                for (int j = 0; j < Globals.BOARD_SIZE / 2; j++)
+                {
+                    Globals.pbs[(i * Globals.BOARD_SIZE / 2) + j].Click += new System.EventHandler(clickToMove);
+                }
+            }
+        }
+
+
+        // click event for the picture boxes
+        private void clickToMove(object sender, EventArgs e)
+        {
+            string numberAsString = ((PictureBox)sender).Name.Substring(5);
+            int position = Int32.Parse(numberAsString);
+            if (Globals.gameStarted && Globals.humanTurn && Globals.clickedPosition == -1)
+            {
+                Globals.clickedPosition = position;
+                ((PictureBox)sender).BackColor = System.Drawing.SystemColors.ActiveCaption;
+            }
+            else if (Globals.gameStarted && Globals.humanTurn && Globals.clickedPosition != -1)
+            {
+                Globals.pbs[Globals.clickedPosition].BackColor = System.Drawing.SystemColors.ControlDarkDark;
+                int fromRow = Globals.clickedPosition / (Globals.BOARD_SIZE / 2);
+                int fromCol = Globals.clickedPosition % (Globals.BOARD_SIZE / 2);
+                int toRow = position / (Globals.BOARD_SIZE / 2);
+                int toCol = position % (Globals.BOARD_SIZE / 2);
+                Globals.clickedPosition = -1;
+                movePiece(fromRow, fromCol, toRow, toCol);
+            }
         }
 
         // check if the game is finished
