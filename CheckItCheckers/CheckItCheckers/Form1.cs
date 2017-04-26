@@ -15,6 +15,7 @@ namespace CheckItCheckers
 {
     public partial class MainForm : Form
     {
+
         public MainForm()
         {
             InitializeComponent();
@@ -373,7 +374,13 @@ namespace CheckItCheckers
 
         }
 
-        //Load File 
+
+        //////////////////////////////////////////////////////////////////////////////////////
+        // Name: private void loadLogToolStripMenuItem_Click(object sender, EventArgs e)    //
+        // Description: Loads the coords from the file in the following format              //
+        //              [INITAL ROW] [INITIAL COL] [DESTINATION ROW] [ DESTINATION COL]     //
+        //              Then the move() can be called and the four variables can be passed. //
+        //////////////////////////////////////////////////////////////////////////////////////
         private void loadLogToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -389,18 +396,70 @@ namespace CheckItCheckers
                     MessageBox.Show(string.Format("File {0} does not exist or is not a text file", filename));
                 }
 
-                //Reads in the line and splits it into different variables.
-                //Read in format: 10 15 
-                string cordSplit = reader.ReadLine(); 
-                string[] cords = cordSplit.Split(' ');
+                while (true)
+                {
+                    //Reads in the line and splits it into different variables.
+                    //Read in format: 10 15 20 25
+                    string cordSplit = reader.ReadLine();
 
-                int x = int.Parse(cords[0]); //cords[0] = 10 // x = 10
-                int y = int.Parse(cords[1]); //cords[1] = 15 // y = 15
+                    if (cordSplit == null) //If the line is null it's EOF. Break to end of loop.
+                    {
+                        break;
+                    }
 
-                
+                    string[] cords = cordSplit.Split(' '); // Splits the cords into individual variables
+
+                    int initRow = int.Parse(cords[0]); //cords[0] = 10 // x = 10
+                    int initCol = int.Parse(cords[1]); //cords[1] = 15 // y = 15
+                    int destRow = int.Parse(cords[2]); //cords[2] = 20 // y = 20
+                    int destCol = int.Parse(cords[3]); //cords[3] = 25 // y = 25
+                }   
+
+                }
             }
+
+
+        //////////////////////////////////////////////////////////////////////////////////////
+        // Name: private void saveLogToolStripMenuItem_Click(object sender, EventArgs e)    //
+        // Description: Checks to see if a file exits with name = log.txt in the dir. If it //
+        //              does it deletes it so that there is no duplicate files. This        //
+        //              function is designed to write the variables in a formatted fasion.  //
+        //              HOWEVER, variables will have to be passed to this each time it      //
+        //              writes to the file.                                                 //
+        //////////////////////////////////////////////////////////////////////////////////////
+        // EXAMPLE PRINTOUT:                                                                //
+        // <[Inital Row: #] [Initial Col: #]> <[Destination Row: #] [Destination Col: #]>   //
+        //////////////////////////////////////////////////////////////////////////////////////
+        private void saveLogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            //THIS IS HARDCODED SO IT CAN COMPILE. THESE VARS MUST BE SENT TO THIS FUCNTION!
+            ////////////////////////////////////////////////////////
+            int initRow = 0, initCol = 0, destRow = 0, destCol = 0; 
+            ////////////////////////////////////////////////////////
+
+            string filePath = @"log.txt"; //PATH TO FILE HERE
+
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+                writer.Write($"<[Initial Row: {initRow}]");
+                writer.Write($" [Initial Col: {initCol}]>");
+                writer.Write($"<[Destination Row: {destRow}]");
+                writer.WriteLine($" [Destination Col: {destCol}]>");
+
+            }
+
         }
 
+
+        ///////////////////////////////////////////////////////////////////////////////////////
+        // Name: private void fiveSecondsToolStripMenuItem_Click(object sender, EventArgs e) //
+        // Description: Starts a timer set to 5000ms(5s) and sets an interval to the same.   //
+        ///////////////////////////////////////////////////////////////////////////////////////
         private void fiveSecondsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Timers.Timer timer = new System.Timers.Timer();
@@ -412,6 +471,11 @@ namespace CheckItCheckers
 
         }
 
+
+        ///////////////////////////////////////////////////////////////////////////////////////
+        // Name: private void tenSecondsToolStripMenuItem_Click(object sender, EventArgs e)  //
+        // Description: Starts a timer set to 10000ms(10s) and sets an interval to the same. //
+        ///////////////////////////////////////////////////////////////////////////////////////
         private void tenSecondsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Timers.Timer timer = new System.Timers.Timer();
@@ -423,6 +487,10 @@ namespace CheckItCheckers
 
         }
 
+        /////////////////////////////////////////////////////////////////////////////////////////
+        // Name: private void twentySecondsToolStripMenuItem_Click(object sender, EventArgs e) //
+        // Description: Starts a timer set to 20000ms(20s) and sets an interval to the same.   //
+        /////////////////////////////////////////////////////////////////////////////////////////
         private void twentySecondsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Timers.Timer timer = new System.Timers.Timer();
@@ -434,6 +502,10 @@ namespace CheckItCheckers
 
         }
 
+        /////////////////////////////////////////////////////////////////////////////////////////
+        // Name: private void minuteToolStripMenuItem_Click(object sender, EventArgs e)        //
+        // Description: Starts a timer set to 60000ms(60s) and sets an interval to the same.   //
+        /////////////////////////////////////////////////////////////////////////////////////////
         private void minuteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Timers.Timer timer = new System.Timers.Timer();
@@ -445,6 +517,11 @@ namespace CheckItCheckers
 
         }
 
+
+        /////////////////////////////////////////////////////////////////////////////////////////
+        // Name: private void noLimitToolStripMenuItem_Click(object sender, EventArgs e)       //
+        // Description: Starts a timer set to Int32.MaxValue and sets an interval to the same. //
+        /////////////////////////////////////////////////////////////////////////////////////////
         private void noLimitToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -466,6 +543,7 @@ namespace CheckItCheckers
 
             //Probably swap to other players turn here.
         }
+
 
         private void player1ComputerButton_Click(object sender, EventArgs e)
         {
@@ -511,6 +589,8 @@ namespace CheckItCheckers
         {
             player2FileLabel.Text = "Human";
         }
+
+
 
 
         // ignore these, creation code is too ugly to mess with in other file
