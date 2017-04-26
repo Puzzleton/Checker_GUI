@@ -30,6 +30,27 @@ namespace CheckItCheckers
             Globals.board = new char[Globals.BOARD_SIZE, Globals.BOARD_SIZE / 2];
             initializeBoard();
             drawBoard();
+            //writeBoardToFile("board.txt");
+            resetLocalLog();
+        }
+
+        // sets the resource log to an empty file
+        private void resetLocalLog()
+        {
+            File.WriteAllText(global::CheckItCheckers.Properties.Resources.log, string.Empty);
+        }
+
+        // appends a string to the local log file
+        private void appendToLocalLog(string str)
+        {
+            File.AppendAllText(global::CheckItCheckers.Properties.Resources.log, str);
+        }
+
+        // copies the contents of the log to the specified filePath
+        private void copyLocalLog(string filePath)
+        {
+            string[] lines = File.ReadAllLines(global::CheckItCheckers.Properties.Resources.log);
+            File.WriteAllLines(filePath, lines);
         }
 
         // sets the board to the initial state
@@ -307,21 +328,30 @@ namespace CheckItCheckers
             return false;
         }
 
-        private void readBoardFromFile(string fileName)
+        /*private void readBoardFromFile(string fileName)
         {
             FileStream fs = new FileStream(fileName, FileMode.Open);
             string fileString = fs.ToString();
             fs.Close();
-        }
+        }*/
 
-        private void writeBoardToFile(string fileName, char[,] board)
+        // sends the board state to a text file
+        private void writeBoardToFile(string fileName)
         {
+            // convert the character array to a string array
             string[] boardAsStrings = new string[Globals.BOARD_SIZE];
             for(int i = 0; i < Globals.BOARD_SIZE; i++)
             {
-                //boardAsStrings[i] = board[i];
+                boardAsStrings[i] = "";
+                for(int j = 0; j < Globals.BOARD_SIZE / 2; j++)
+                {
+                    boardAsStrings[i] += Globals.board[i,j].ToString();
+                }
+
             }
-            //File.WriteAllLines("board.txt", );
+
+            // write each string as its own line
+            File.WriteAllLines(fileName, boardAsStrings);
             
         }
 
@@ -368,6 +398,7 @@ namespace CheckItCheckers
             return dlgOpenReciprocityFile.FileName;
         }
 
+        
 
         private void groupBox1_Enter(object sender, EventArgs e)
         {

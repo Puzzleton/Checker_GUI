@@ -37,3 +37,9 @@ C:\Users\fishb\Documents\Checkers_GUI\Checker_GUI\CheckItCheckers\CheckItChecker
 C:\Users\fishb\Documents\Checkers_GUI\Checker_GUI\CheckItCheckers\CheckItCheckers\obj\Debug\CheckItCheckers.MainForm.resources
 C:\Users\fishb\Documents\Checkers_GUI\Checker_GUI\CheckItCheckers\CheckItCheckers\obj\Debug\CheckItCheckers.Properties.Resources.resources
 C:\Users\fishb\Documents\Checkers_GUI\Checker_GUI\CheckItCheckers\CheckItCheckers\obj\Debug\CheckItCheckers.csproj.GenerateResource.Cache
+C:\Users\puzzleton\Documents\GitHub\checkers\Checker_GUI\CheckItCheckers\CheckItCheckers\bin\Debug\CheckItCheckers.exe
+C:\Users\puzzleton\Documents\GitHub\checkers\Checker_GUI\CheckItCheckers\CheckItCheckers\bin\Debug\CheckItCheckers.pdb
+C:\Users\puzzleton\Documents\GitHub\checkers\Checker_GUI\CheckItCheckers\CheckItCheckers\obj\Debug\CheckItCheckers.csprojResolveAssemblyReference.cache
+C:\Users\puzzleton\Documents\GitHub\checkers\Checker_GUI\CheckItCheckers\CheckItCheckers\obj\Debug\CheckItCheckers.MainForm.resources
+C:\Users\puzzleton\Documents\GitHub\checkers\Checker_GUI\CheckItCheckers\CheckItCheckers\obj\Debug\CheckItCheckers.Properties.Resources.resources
+C:\Users\puzzleton\Documents\GitHub\checkers\Checker_GUI\CheckItCheckers\CheckItCheckers\obj\Debug\CheckItCheckers.csproj.GenerateResource.Cache
