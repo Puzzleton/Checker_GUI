@@ -19,7 +19,7 @@ namespace CheckItCheckers
         public MainForm()
         {
             InitializeComponent();
-          
+
             Globals.pbs = this.Controls.OfType<PictureBox>()
                         .Where(pb => pb.Name.StartsWith("space"))
                         .OrderBy(pb => int.Parse(pb.Name.Replace("space", "")))
@@ -33,7 +33,7 @@ namespace CheckItCheckers
             resetLocalLog();
             //movePiece(2, 0, 3, 0);
             //movePiece(5, 0, 4, 0);
-            //writeBoardToFile("board.txt");
+            writeBoardToFile("board.txt");
 
             for (int i = 0; i < Globals.BOARD_SIZE; i++)
             {
@@ -91,24 +91,33 @@ namespace CheckItCheckers
                         // start the timer
                         Stopwatch sw = new Stopwatch();
                         sw.Start();
-                        // TODO: call the computer function
-                        load_executable(Globals.blackPath);
+                        // start the computer
+                        ProcessStartInfo start = load_executable(Globals.blackPath);
+                        // Run the external process
+                        Process proc = Process.Start(start);
                         while (!File.Exists("move.txt"))
                         {
                             // if timer is expired white wins, then return
-                            if(Globals.timeOut > 0 && sw.ElapsedMilliseconds > Globals.timeOut)
+                            if (Globals.timeOut > 0 && sw.ElapsedMilliseconds > Globals.timeOut)
                             {
                                 MessageBox.Show("Program timed out, white wins.");
                                 Globals.gameFinished = true;
+                                proc.Kill();
                                 return;
                             }
 
                         }
+                        proc.WaitForExit();
                         // if the move is bad white wins, then return
                         if (!readMove("move.txt"))
                         {
                             MessageBox.Show("Bad move, white wins.");
                             Globals.gameFinished = true;
+                            return;
+                        }
+                        else
+                        {
+                            nextTurn();
                             return;
                         }
                     }
@@ -118,15 +127,17 @@ namespace CheckItCheckers
                     }
                     break;
                 case Globals.WHITE_TURN:
-                    if (!Globals.isBlackHuman)
+                    if (!Globals.isWhiteHuman)
                     {
                         Globals.humanTurn = false;
                         File.Delete("move.txt");
                         // start the timer
                         Stopwatch sw = new Stopwatch();
                         sw.Start();
-                        // TODO: call the computer function
-                        load_executable(Globals.whitePath);
+                        // start the computer
+                        ProcessStartInfo start = load_executable(Globals.whitePath);
+                        // Run the external process
+                        Process proc = Process.Start(start);
                         while (!File.Exists("move.txt"))
                         {
                             // if timer is expired black wins, then return
@@ -134,14 +145,21 @@ namespace CheckItCheckers
                             {
                                 MessageBox.Show("Program timed out, black wins.");
                                 Globals.gameFinished = true;
+                                proc.Kill();
                                 return;
                             }
                         }
+                        proc.WaitForExit();
                         // if the move is bad black wins, then return
                         if (!readMove("move.txt"))
                         {
                             MessageBox.Show("Bad move, black wins.");
                             Globals.gameFinished = true;
+                            return;
+                        }
+                        else
+                        {
+                            nextTurn();
                             return;
                         }
                     }
@@ -184,18 +202,18 @@ namespace CheckItCheckers
             bool whitePiecesLeft = false;
 
             // see if there is a draw
-            if(Globals.lastJumpCounter >= 40)
+            if (Globals.lastJumpCounter >= 40)
             {
                 MessageBox.Show("40 turns have passed without a piece being taken. The game ends in a draw.");
                 return true;
             }
 
             // see if either side is out of pieces
-            for(int i = 0; i < Globals.BOARD_SIZE || (!blackPiecesLeft && !whitePiecesLeft); i++)
+            for (int i = 0; i < Globals.BOARD_SIZE || (!blackPiecesLeft && !whitePiecesLeft); i++)
             {
-                for(int j = 0; j < (Globals.BOARD_SIZE / 2) || (!blackPiecesLeft && !whitePiecesLeft); j++)
+                for (int j = 0; j < (Globals.BOARD_SIZE / 2) || (!blackPiecesLeft && !whitePiecesLeft); j++)
                 {
-                    switch(Globals.board[i,j])
+                    switch (Globals.board[i, j])
                     {
                         case Globals.WHITE_CHAR:
                         case Globals.WHITE_KING_CHAR:
@@ -208,14 +226,14 @@ namespace CheckItCheckers
                     }
                 }
             }
-            if(!blackPiecesLeft)
+            if (!blackPiecesLeft)
             {
                 MessageBox.Show("White wins!");
                 Globals.gameStarted = false;
                 Globals.gameFinished = true;
                 return true;
             }
-            else if(!whitePiecesLeft)
+            else if (!whitePiecesLeft)
             {
                 MessageBox.Show("Black wins!");
                 Globals.gameStarted = false;
@@ -557,19 +575,19 @@ namespace CheckItCheckers
         {
             // convert the character array to a string array
             string[] boardAsStrings = new string[Globals.BOARD_SIZE];
-            for(int i = 0; i < Globals.BOARD_SIZE; i++)
+            for (int i = 0; i < Globals.BOARD_SIZE; i++)
             {
                 boardAsStrings[i] = "";
-                for(int j = 0; j < Globals.BOARD_SIZE / 2; j++)
+                for (int j = 0; j < Globals.BOARD_SIZE / 2; j++)
                 {
-                    boardAsStrings[i] += Globals.board[i,j].ToString();
+                    boardAsStrings[i] += Globals.board[i, j].ToString();
                 }
 
             }
 
             // write each string as its own line
             File.WriteAllLines(fileName, boardAsStrings);
-            
+
         }
 
         private void updatePiece(int row, int column, int color)
@@ -598,7 +616,7 @@ namespace CheckItCheckers
         public string calltoWindowsExplorer()
         {
             //string newfilepath = "";
-           // System.Diagnostics.Process completepath;
+            // System.Diagnostics.Process completepath;
 
             OpenFileDialog dlgOpenReciprocityFile = new OpenFileDialog(); dlgOpenReciprocityFile.InitialDirectory = @"C:\";
 
@@ -610,7 +628,7 @@ namespace CheckItCheckers
             if (dlgOpenReciprocityFile.ShowDialog() == DialogResult.Cancel)
 
                 return "";
-                ;
+            ;
 
             //completepath = Process.Start("explorer.exe", "/select," + newfilepath);
 
@@ -618,7 +636,7 @@ namespace CheckItCheckers
             return dlgOpenReciprocityFile.FileName;
         }
 
-        
+
 
         private void groupBox1_Enter(object sender, EventArgs e)
         {
@@ -654,7 +672,7 @@ namespace CheckItCheckers
                 {
                     MessageBox.Show(string.Format("File {0} does not exist or is not a text file", filename));
                 }
-                
+
                 string cordSplit = reader.ReadLine();
 
                 while (cordSplit != null)
@@ -671,7 +689,7 @@ namespace CheckItCheckers
 
                     movePiece(initRow, initCol, destRow, destCol);
                     cordSplit = reader.ReadLine();
-                }   
+                }
 
 
             }
@@ -696,7 +714,7 @@ namespace CheckItCheckers
             if (dlgSaveReciprocityFile.ShowDialog() == DialogResult.Cancel)
 
                 //If cancel
-                return;               
+                return;
 
             copyLocalLog(dlgSaveReciprocityFile.FileName);
 
@@ -764,12 +782,12 @@ namespace CheckItCheckers
 
         }
 
-        
+
 
 
         private void player1ComputerButton_Click(object sender, EventArgs e)
         {
-            if(!Globals.gameStarted || Globals.gameFinished)
+            if (!Globals.gameStarted || Globals.gameFinished)
             {
                 string path = calltoWindowsExplorer();
                 if (path != "")
@@ -787,7 +805,7 @@ namespace CheckItCheckers
 
         private void player2ComputerButton_Click(object sender, EventArgs e)
         {
-            if(!Globals.gameStarted || Globals.gameFinished)
+            if (!Globals.gameStarted || Globals.gameFinished)
             {
                 string path = calltoWindowsExplorer();
                 if (path != "")
@@ -805,7 +823,7 @@ namespace CheckItCheckers
 
         private void startGameButton_Click(object sender, EventArgs e)
         {
-            if(Globals.gameFinished)
+            if (Globals.gameFinished)
             {
                 MessageBox.Show("Click restart game to restart.");
             }
@@ -830,14 +848,18 @@ namespace CheckItCheckers
             Globals.gameStarted = false;
             Globals.gameFinished = false;
             Globals.humanTurn = false;
+            writeBoardToFile("board.txt");
         }
 
-        private void load_executable(string filename)
+        private ProcessStartInfo load_executable(string filename)
         {
             // custom function to load an executable
-            Process load = new Process();
-            load.StartInfo.FileName = filename;
-            load.StartInfo.CreateNoWindow = true; // no need for executables that just return moves
+            ProcessStartInfo start = new ProcessStartInfo();
+            start.FileName = filename;
+            start.CreateNoWindow = true;// no need for executables that just return moves
+            start.WindowStyle = ProcessWindowStyle.Hidden;
+
+            return start;
         }
 
         private void player1HumanButton_Click(object sender, EventArgs e)
@@ -851,7 +873,7 @@ namespace CheckItCheckers
             {
                 MessageBox.Show("Game in progress.");
             }
-        } 
+        }
 
         private void player2HumanButton_Click(object sender, EventArgs e)
         {
@@ -880,12 +902,12 @@ namespace CheckItCheckers
         ///////////////////////////////////////////////////////////////////////////////////////////
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var confirmResult = MessageBox.Show("Are you sure to exit?","Exit CheckItCheckers", MessageBoxButtons.YesNo);
+            var confirmResult = MessageBox.Show("Are you sure to exit?", "Exit CheckItCheckers", MessageBoxButtons.YesNo);
             if (confirmResult == DialogResult.Yes)
             {
                 Application.Exit();
             }
-                       
+
 
         }
     }
