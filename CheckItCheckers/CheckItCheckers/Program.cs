@@ -28,8 +28,8 @@ namespace CheckItCheckers
         public static bool isBlackHuman = true;
         public static bool isWhiteHuman = true;
         public static int lastJumpCounter = 0;
-        public static bool gameStarted = true;
-        public static bool humanTurn = true;
+        public static bool gameStarted = false;
+        public static bool humanTurn = false;
         public static int clickedPosition = -1;
         public static bool gameFinished = false;
         public static string blackPath = "";
