@@ -209,9 +209,9 @@ namespace CheckItCheckers
             }
 
             // see if either side is out of pieces
-            for (int i = 0; i < Globals.BOARD_SIZE || (!blackPiecesLeft && !whitePiecesLeft); i++)
+            for (int i = 0; i < Globals.BOARD_SIZE; i++)
             {
-                for (int j = 0; j < (Globals.BOARD_SIZE / 2) || (!blackPiecesLeft && !whitePiecesLeft); j++)
+                for (int j = 0; j < (Globals.BOARD_SIZE / 2); j++)
                 {
                     switch (Globals.board[i, j])
                     {
@@ -575,12 +575,57 @@ namespace CheckItCheckers
         {
             // convert the character array to a string array
             string[] boardAsStrings = new string[Globals.BOARD_SIZE];
+            string tempString = "";
             for (int i = 0; i < Globals.BOARD_SIZE; i++)
             {
                 boardAsStrings[i] = "";
                 for (int j = 0; j < Globals.BOARD_SIZE / 2; j++)
                 {
-                    boardAsStrings[i] += Globals.board[i, j].ToString();
+                    tempString = Globals.board[i, j].ToString();
+                    switch(Globals.turn)
+                    {
+                        case Globals.BLACK_TURN:
+                            switch(tempString)
+                            {
+                                case "b":
+                                    tempString = "o";
+                                    break;
+                                case "B":
+                                    tempString = "O";
+                                    break;
+                                case "w":
+                                    tempString = "x";
+                                    break;
+                                case "W":
+                                    tempString = "X";
+                                    break;
+                                default:
+                                    tempString = " ";
+                                    break;
+                            }
+                            break;
+                        case Globals.WHITE_TURN:
+                            switch (tempString)
+                            {
+                                case "b":
+                                    tempString = "x";
+                                    break;
+                                case "B":
+                                    tempString = "X";
+                                    break;
+                                case "w":
+                                    tempString = "o";
+                                    break;
+                                case "W":
+                                    tempString = "O";
+                                    break;
+                                default:
+                                    tempString = " ";
+                                    break;
+                            }
+                            break;
+                    }
+                    boardAsStrings[i] += tempString;
                 }
 
             }
@@ -908,6 +953,166 @@ namespace CheckItCheckers
                 Application.Exit();
             }
 
+
+        }
+
+        private void space19_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox34_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void space30_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox36_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void space29_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox38_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void space28_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox40_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void space27_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox42_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void space26_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox44_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void space25_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox46_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void space24_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox48_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void space23_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox50_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void space22_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox52_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void space21_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox54_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void space20_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox56_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void space31_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox58_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void space18_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox60_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void space17_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox62_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void space16_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox64_Click(object sender, EventArgs e)
+        {
 
         }
     }
