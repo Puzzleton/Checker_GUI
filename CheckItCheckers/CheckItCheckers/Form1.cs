@@ -92,13 +92,14 @@ namespace CheckItCheckers
                         Stopwatch sw = new Stopwatch();
                         sw.Start();
                         // TODO: call the computer function
-
+                        load_executable(Globals.blackPath);
                         while (!File.Exists("move.txt"))
                         {
                             // if timer is expired white wins, then return
                             if(Globals.timeOut > 0 && sw.ElapsedMilliseconds > Globals.timeOut)
                             {
                                 MessageBox.Show("Program timed out, white wins.");
+                                Globals.gameFinished = true;
                                 return;
                             }
 
@@ -107,6 +108,7 @@ namespace CheckItCheckers
                         if (!readMove("move.txt"))
                         {
                             MessageBox.Show("Bad move, white wins.");
+                            Globals.gameFinished = true;
                             return;
                         }
                     }
@@ -124,12 +126,14 @@ namespace CheckItCheckers
                         Stopwatch sw = new Stopwatch();
                         sw.Start();
                         // TODO: call the computer function
+                        load_executable(Globals.whitePath);
                         while (!File.Exists("move.txt"))
                         {
                             // if timer is expired black wins, then return
                             if (Globals.timeOut > 0 && sw.ElapsedMilliseconds > Globals.timeOut)
                             {
                                 MessageBox.Show("Program timed out, black wins.");
+                                Globals.gameFinished = true;
                                 return;
                             }
                         }
@@ -137,6 +141,7 @@ namespace CheckItCheckers
                         if (!readMove("move.txt"))
                         {
                             MessageBox.Show("Bad move, black wins.");
+                            Globals.gameFinished = true;
                             return;
                         }
                     }
@@ -604,7 +609,7 @@ namespace CheckItCheckers
             dlgOpenReciprocityFile.RestoreDirectory = true;
             if (dlgOpenReciprocityFile.ShowDialog() == DialogResult.Cancel)
 
-                //If cancel
+                return "";
                 ;
 
             //completepath = Process.Start("explorer.exe", "/select," + newfilepath);
@@ -764,16 +769,38 @@ namespace CheckItCheckers
 
         private void player1ComputerButton_Click(object sender, EventArgs e)
         {
-            string path = calltoWindowsExplorer();
-            load_executable(path);
-            player1FileLabel.Text = path;
+            if(!Globals.gameStarted || Globals.gameFinished)
+            {
+                string path = calltoWindowsExplorer();
+                if (path != "")
+                {
+                    Globals.blackPath = path;
+                    player1FileLabel.Text = path;
+                    Globals.isBlackHuman = false;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Game in progress.");
+            }
         }
 
         private void player2ComputerButton_Click(object sender, EventArgs e)
         {
-            string path = calltoWindowsExplorer();
-            load_executable(path);
-            player2FileLabel.Text = path;
+            if(!Globals.gameStarted || Globals.gameFinished)
+            {
+                string path = calltoWindowsExplorer();
+                if (path != "")
+                {
+                    Globals.whitePath = path;
+                    player2FileLabel.Text = path;
+                    Globals.isWhiteHuman = false;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Game in progress.");
+            }
         }
 
         private void startGameButton_Click(object sender, EventArgs e)
@@ -815,12 +842,28 @@ namespace CheckItCheckers
 
         private void player1HumanButton_Click(object sender, EventArgs e)
         {
-            player1FileLabel.Text = "Human";
+            if (!Globals.gameStarted || Globals.gameFinished)
+            {
+                player1FileLabel.Text = "Human";
+                Globals.isBlackHuman = true;
+            }
+            else
+            {
+                MessageBox.Show("Game in progress.");
+            }
         } 
 
         private void player2HumanButton_Click(object sender, EventArgs e)
         {
-            player2FileLabel.Text = "Human";
+            if (!Globals.gameStarted || Globals.gameFinished)
+            {
+                player2FileLabel.Text = "Human";
+                Globals.isWhiteHuman = true;
+            }
+            else
+            {
+                MessageBox.Show("Game in progress.");
+            }
         }
 
 
