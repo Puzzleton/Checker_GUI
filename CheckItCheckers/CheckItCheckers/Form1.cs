@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Timers;
-using System.Diagnostics;
 
 namespace CheckItCheckers
 {
@@ -44,6 +44,114 @@ namespace CheckItCheckers
             }
         }
 
+        // reads the move from a file
+        private bool readMove(string fileName)
+        {
+            using (TextReader reader = File.OpenText(fileName))
+            {
+
+                //Error check if the file does not exist
+                if (!File.Exists(fileName))
+                {
+                    MessageBox.Show(string.Format("File {0} does not exist or is not a text file", fileName));
+                }
+
+                string cordSplit = reader.ReadLine();
+
+                if (cordSplit != null)
+                {
+                    //Reads in the line and splits it into different variables.
+                    //Read in format: 10 15 20 25
+
+                    string[] cords = cordSplit.Split(' '); // Splits the cords into individual variables
+
+                    int initRow = int.Parse(cords[0]); //cords[0] = 10 // x = 10
+                    int initCol = int.Parse(cords[1]); //cords[1] = 15 // y = 15
+                    int destRow = int.Parse(cords[2]); //cords[2] = 20 // x = 20
+                    int destCol = int.Parse(cords[3]); //cords[3] = 25 // y = 25
+
+                    return movePiece(initRow, initCol, destRow, destCol);
+                }
+
+            }
+            return false;
+        }
+
+        // handles the human/computer turns
+        private void nextTurn()
+        {
+            isGameOver();
+            switch (Globals.turn)
+            {
+                case Globals.BLACK_TURN:
+                    if (!Globals.isBlackHuman)
+                    {
+                        Globals.humanTurn = false;
+                        File.Delete("move.txt");
+                        // start the timer
+                        Stopwatch sw = new Stopwatch();
+                        sw.Start();
+                        // TODO: call the computer function
+                        load_executable(Globals.blackPath);
+                        while (!File.Exists("move.txt"))
+                        {
+                            // if timer is expired white wins, then return
+                            if(Globals.timeOut > 0 && sw.ElapsedMilliseconds > Globals.timeOut)
+                            {
+                                MessageBox.Show("Program timed out, white wins.");
+                                Globals.gameFinished = true;
+                                return;
+                            }
+
+                        }
+                        // if the move is bad white wins, then return
+                        if (!readMove("move.txt"))
+                        {
+                            MessageBox.Show("Bad move, white wins.");
+                            Globals.gameFinished = true;
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        Globals.humanTurn = true;
+                    }
+                    break;
+                case Globals.WHITE_TURN:
+                    if (!Globals.isBlackHuman)
+                    {
+                        Globals.humanTurn = false;
+                        File.Delete("move.txt");
+                        // start the timer
+                        Stopwatch sw = new Stopwatch();
+                        sw.Start();
+                        // TODO: call the computer function
+                        load_executable(Globals.whitePath);
+                        while (!File.Exists("move.txt"))
+                        {
+                            // if timer is expired black wins, then return
+                            if (Globals.timeOut > 0 && sw.ElapsedMilliseconds > Globals.timeOut)
+                            {
+                                MessageBox.Show("Program timed out, black wins.");
+                                Globals.gameFinished = true;
+                                return;
+                            }
+                        }
+                        // if the move is bad black wins, then return
+                        if (!readMove("move.txt"))
+                        {
+                            MessageBox.Show("Bad move, black wins.");
+                            Globals.gameFinished = true;
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        Globals.humanTurn = true;
+                    }
+                    break;
+            }
+        }
 
         // click event for the picture boxes
         private void clickToMove(object sender, EventArgs e)
@@ -64,7 +172,9 @@ namespace CheckItCheckers
                 int toCol = position % (Globals.BOARD_SIZE / 2);
                 Globals.clickedPosition = -1;
                 movePiece(fromRow, fromCol, toRow, toCol);
+                nextTurn();
             }
+
         }
 
         // check if the game is finished
@@ -81,9 +191,9 @@ namespace CheckItCheckers
             }
 
             // see if either side is out of pieces
-            for(int i = 0; i < Globals.BOARD_SIZE || (blackPiecesLeft && whitePiecesLeft); i++)
+            for(int i = 0; i < Globals.BOARD_SIZE || (!blackPiecesLeft && !whitePiecesLeft); i++)
             {
-                for(int j = 0; j < Globals.BOARD_SIZE / 2 || (blackPiecesLeft && whitePiecesLeft); j++)
+                for(int j = 0; j < (Globals.BOARD_SIZE / 2) || (!blackPiecesLeft && !whitePiecesLeft); j++)
                 {
                     switch(Globals.board[i,j])
                     {
@@ -101,11 +211,15 @@ namespace CheckItCheckers
             if(!blackPiecesLeft)
             {
                 MessageBox.Show("White wins!");
+                Globals.gameStarted = false;
+                Globals.gameFinished = true;
                 return true;
             }
             else if(!whitePiecesLeft)
             {
                 MessageBox.Show("Black wins!");
+                Globals.gameStarted = false;
+                Globals.gameFinished = true;
                 return true;
             }
             else
@@ -495,7 +609,7 @@ namespace CheckItCheckers
             dlgOpenReciprocityFile.RestoreDirectory = true;
             if (dlgOpenReciprocityFile.ShowDialog() == DialogResult.Cancel)
 
-                //If cancel
+                return "";
                 ;
 
             //completepath = Process.Start("explorer.exe", "/select," + newfilepath);
@@ -540,26 +654,23 @@ namespace CheckItCheckers
                 {
                     MessageBox.Show(string.Format("File {0} does not exist or is not a text file", filename));
                 }
+                
+                string cordSplit = reader.ReadLine();
 
-
-
-                while (true)
+                while (cordSplit != null)
                 {
                     //Reads in the line and splits it into different variables.
                     //Read in format: 10 15 20 25
-                    string cordSplit = reader.ReadLine();
-
-                    if (cordSplit == null) //If the line is null it's EOF. Break to end of loop.
-                    {
-                        break;
-                    }
 
                     string[] cords = cordSplit.Split(' '); // Splits the cords into individual variables
 
                     int initRow = int.Parse(cords[0]); //cords[0] = 10 // x = 10
                     int initCol = int.Parse(cords[1]); //cords[1] = 15 // y = 15
-                    int destRow = int.Parse(cords[2]); //cords[2] = 20 // y = 20
+                    int destRow = int.Parse(cords[2]); //cords[2] = 20 // x = 20
                     int destCol = int.Parse(cords[3]); //cords[3] = 25 // y = 25
+
+                    movePiece(initRow, initCol, destRow, destCol);
+                    cordSplit = reader.ReadLine();
                 }   
 
 
@@ -598,12 +709,7 @@ namespace CheckItCheckers
         ///////////////////////////////////////////////////////////////////////////////////////
         private void fiveSecondsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Timers.Timer timer = new System.Timers.Timer();
-            timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            timer.Interval = 5000;
-            timer.Enabled = true;
-
-            //timer.Stop();
+            Globals.timeOut = 5000;
 
         }
 
@@ -614,10 +720,7 @@ namespace CheckItCheckers
         ///////////////////////////////////////////////////////////////////////////////////////
         private void tenSecondsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Timers.Timer timer = new System.Timers.Timer();
-            timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            timer.Interval = 10000;
-            timer.Enabled = true;
+            Globals.timeOut = 10000;
 
             //timer.Stop();
 
@@ -629,10 +732,7 @@ namespace CheckItCheckers
         /////////////////////////////////////////////////////////////////////////////////////////
         private void twentySecondsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Timers.Timer timer = new System.Timers.Timer();
-            timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            timer.Interval = 20000;
-            timer.Enabled = true;
+            Globals.timeOut = 20000;
 
             //timer.Stop();
 
@@ -644,10 +744,7 @@ namespace CheckItCheckers
         /////////////////////////////////////////////////////////////////////////////////////////
         private void minuteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Timers.Timer timer = new System.Timers.Timer();
-            timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            timer.Interval = 60000;
-            timer.Enabled = true;
+            Globals.timeOut = 60000;
 
             //timer.Stop();
 
@@ -661,43 +758,62 @@ namespace CheckItCheckers
         private void noLimitToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            //This may not work. Need to test still. Since we can not set timer.Interval = PosativeInfinity, 
-            //I have to set to the upper bound for the timer class.
-
-            System.Timers.Timer timer = new System.Timers.Timer();
-            timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            timer.Interval = Int32.MaxValue;
-            timer.Enabled = true;
+            Globals.timeOut = 0;
 
             //timer.Stop();
 
         }
 
-        private static void OnTimedEvent(object source, ElapsedEventArgs e)
-        {
-            Console.WriteLine("Time Limit has been reached!");
-
-            //Probably swap to other players turn here.
-        }
+        
 
 
         private void player1ComputerButton_Click(object sender, EventArgs e)
         {
-            string path = calltoWindowsExplorer();
-            load_executable(path);
-            player1FileLabel.Text = path;
+            if(!Globals.gameStarted || Globals.gameFinished)
+            {
+                string path = calltoWindowsExplorer();
+                if (path != "")
+                {
+                    Globals.blackPath = path;
+                    player1FileLabel.Text = path;
+                    Globals.isBlackHuman = false;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Game in progress.");
+            }
         }
 
         private void player2ComputerButton_Click(object sender, EventArgs e)
         {
-            string path = calltoWindowsExplorer();
-            load_executable(path);
-            player2FileLabel.Text = path;
+            if(!Globals.gameStarted || Globals.gameFinished)
+            {
+                string path = calltoWindowsExplorer();
+                if (path != "")
+                {
+                    Globals.whitePath = path;
+                    player2FileLabel.Text = path;
+                    Globals.isWhiteHuman = false;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Game in progress.");
+            }
         }
 
         private void startGameButton_Click(object sender, EventArgs e)
         {
-            
+            if(Globals.gameFinished)
+            {
+                MessageBox.Show("Click restart game to restart.");
+            }
+            else
+            {
+                Globals.gameStarted = true;
+                nextTurn();
+            }
         }
 
         private void resetGameButton_Click(object sender, EventArgs e)
@@ -710,6 +826,10 @@ namespace CheckItCheckers
             initializeBoard();
             drawBoard();
             resetLocalLog();
+            Globals.turn = Globals.BLACK_TURN;
+            Globals.gameStarted = false;
+            Globals.gameFinished = false;
+            Globals.humanTurn = false;
         }
 
         private void load_executable(string filename)
@@ -722,12 +842,28 @@ namespace CheckItCheckers
 
         private void player1HumanButton_Click(object sender, EventArgs e)
         {
-            player1FileLabel.Text = "Human";
+            if (!Globals.gameStarted || Globals.gameFinished)
+            {
+                player1FileLabel.Text = "Human";
+                Globals.isBlackHuman = true;
+            }
+            else
+            {
+                MessageBox.Show("Game in progress.");
+            }
         } 
 
         private void player2HumanButton_Click(object sender, EventArgs e)
         {
-            player2FileLabel.Text = "Human";
+            if (!Globals.gameStarted || Globals.gameFinished)
+            {
+                player2FileLabel.Text = "Human";
+                Globals.isWhiteHuman = true;
+            }
+            else
+            {
+                MessageBox.Show("Game in progress.");
+            }
         }
 
 
