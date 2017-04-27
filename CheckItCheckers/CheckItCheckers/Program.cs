@@ -31,6 +31,7 @@ namespace CheckItCheckers
         public static bool gameStarted = true;
         public static bool humanTurn = true;
         public static int clickedPosition = -1;
+        public static bool gameFinished = false;
     }
     static class Program
     {
