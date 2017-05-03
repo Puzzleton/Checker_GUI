@@ -210,9 +210,11 @@ namespace CheckItCheckers
             bool whitePiecesLeft = false;
 
             // see if there is a draw
-            if (Globals.lastJumpCounter >= 40)
+            if (Globals.lastJumpCounter >= 100)
             {
-                MessageBox.Show("40 turns have passed without a piece being taken. The game ends in a draw.");
+                MessageBox.Show("100 turns have passed without a piece being taken. The game ends in a draw.");
+                Globals.gameStarted = false;
+                Globals.gameFinished = true;
                 return true;
             }
 
