@@ -70,6 +70,14 @@ namespace CheckItCheckers
                     int destRow = int.Parse(cords[2]); //cords[2] = 20 // x = 20
                     int destCol = int.Parse(cords[3]); //cords[3] = 25 // y = 25
 
+                    if (Globals.turn == Globals.WHITE_TURN && !Globals.isWhiteHuman)
+                    {
+                        initRow = Math.Abs(initRow - (Globals.BOARD_SIZE - 1));
+                        initCol = Math.Abs(initCol - ((Globals.BOARD_SIZE / 2) - 1));
+                        destRow = Math.Abs(destRow - (Globals.BOARD_SIZE - 1));
+                        destCol = Math.Abs(destCol - ((Globals.BOARD_SIZE / 2) - 1));
+                    }
+
                     return movePiece(initRow, initCol, destRow, destCol);
                 }
 
@@ -628,6 +636,15 @@ namespace CheckItCheckers
                     boardAsStrings[i] += tempString;
                 }
 
+            }
+
+            if(Globals.turn == Globals.WHITE_TURN)
+            {
+                for(int i = 0; i < Globals.BOARD_SIZE; i++)
+                {
+                    boardAsStrings[i] = new string(boardAsStrings[i].ToCharArray().Reverse().ToArray());
+                }
+                Array.Reverse(boardAsStrings);
             }
 
             // write each string as its own line
